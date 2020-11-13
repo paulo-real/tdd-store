@@ -11,11 +11,7 @@ class CreateProductTest extends TestCase
 {
     protected $model = Product::class;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+    /** @test */
     public function testAuthenticatedUserCanCreateProducts()
     {
         $this->auth();
