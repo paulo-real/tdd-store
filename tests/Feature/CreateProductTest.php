@@ -22,9 +22,12 @@ class CreateProductTest extends TestCase
 
         $product = Product::factory()->make();
 
-        $response = $this->post('/api/product', $product->toArray());
+        $response = $this->post(
+            '/api/product',
+            $product->toArray()
+        )
+        ->assertStatus(201);
 
-        $response->assertStatus(200);
         $this->assertDatabaseHas($this->table, [
             'name' => $product->name,
             'description' => $product->description,
