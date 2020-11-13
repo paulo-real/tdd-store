@@ -3,9 +3,13 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 abstract class TestCase extends BaseTestCase
 {
+    use DatabaseMigrations;
     use CreatesApplication;
 
     /**
@@ -24,7 +28,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Authenticate user to run an test
+     * Create and authenticate user to run an test
      *
      * @param  mixed $user
      * @return void
@@ -33,9 +37,8 @@ abstract class TestCase extends BaseTestCase
     {
         $user = $user ?: $this->create('App\Models\User');
 
-        return auth()->attempt([
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        $this->actingAs($user);
+
+        return $this;
     }
 }
