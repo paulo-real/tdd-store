@@ -12,8 +12,10 @@ class RegisterCustomerTest extends TestCase
     protected $model = Customer::class;
 
     /** @test */
-    public function testGuestCanSelfRegisterAsCustomer()
+    public function testAuthenticatedUserCanCreateCustomers()
     {
+        $this->auth();
+
         $customer = Customer::factory()->make();
 
         $response = $this->post(
