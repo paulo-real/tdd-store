@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('product', 'App\Http\Controllers\ProductController');
+Route::resource('customer', 'App\Http\Controllers\CustomerController');
