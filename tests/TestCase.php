@@ -13,6 +13,28 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     /**
+     * Define Default Model
+     *
+     * @var string
+     */
+    protected $model;
+
+
+    /**
+     * Instance of model
+     *
+     * @var Model
+     */
+    protected $instance;
+
+    /**
+     * Table of instanced model
+     *
+     * @var string
+     */
+    protected $table;
+
+    /**
      * Call factory directly
      *
      * @param  mixed $model
@@ -40,5 +62,20 @@ abstract class TestCase extends BaseTestCase
         $this->actingAs($user);
 
         return $this;
+    }
+
+    /**
+     * setUp
+     *
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if ($this->model) {
+            $this->instance = new $this->model();
+            $this->table = $this->instance->getTable();
+        }
     }
 }
