@@ -3,9 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use App\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
+    /**
+     * Set repository
+     *
+     * @var mixed
+     */
+    protected $repository;
+
+    /**
+     * Create a new ProductController instance.
+     */
+    public function __construct(
+        ProductRepository $repository
+    ) {
+        $this->middleware('auth')->except(['index', 'show']);
+
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +39,12 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        dd($request);
+        return $this->repository->store($request->toArray());
     }
 
     /**
