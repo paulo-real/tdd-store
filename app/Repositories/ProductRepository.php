@@ -9,7 +9,7 @@ class ProductRepository extends BaseRepository
     /**
      * Set Product as Model
      *
-     * @var undefined
+     * @var Product
      */
     public $model = Product::class;
 
